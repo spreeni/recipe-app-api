@@ -11,3 +11,9 @@ run:
 	docker-compose up
 stop:
 	docker-compose down
+
+.PHONY: makemigrations, migrate
+makemigrations:
+	docker-compose run --rm app sh -c "python manage.py makemigrations"
+migrate:
+	docker-compose run --rm app sh -c "python manage.py wait_for_db && python manage.py migrate"
